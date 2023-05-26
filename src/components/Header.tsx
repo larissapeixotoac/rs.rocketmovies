@@ -1,30 +1,46 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Input } from './Input'
+import { useAuth } from '../hooks/auth'
 
 export function Header() {
+    const { userDataAndFunc } = useAuth()
+    
+    const navigate = useNavigate()
+
+    function handlesignOut() {
+        userDataAndFunc.signOut()
+        navigate('/')
+    }
+
     return (
         <div className='flex justify-between items-center w-screen px-28 py-[25px] border-b border-[#3E3B47]'>
             <h1 className=' text-PINK font-bold text-2xl mr-16'>
                 RocketMovies
             </h1>
             <div className='flex-1'>
-                <Input type="text" placeholder="Pesquisar pelo título" value="" />
+                <Input 
+                    type="text" 
+                    placeholder="Pesquisar pelo título" 
+                    value="" 
+                    onChange={() => {}}
+                />
             </div>
             <div className='flex ml-16 gap-3'>
                 <div className='flex flex-col items-end py-4'>
                     <Link 
                         to="/profile"
-                        className=' font-bold text-sm'
+                        className=' font-bold'
                     >
-                        Larissa Peixoto
+                        {userDataAndFunc.user.name}
                     </Link>
-                    <a 
-                        href="#"
+
+                    <button 
                         className='text-sm text-GRAY_100'
+                        onClick={handlesignOut}
                     >
                         sair
-                    </a>
+                    </button>
                 </div>
                 <Link to="/profile">
                     <img

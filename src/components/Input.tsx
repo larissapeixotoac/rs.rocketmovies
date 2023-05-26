@@ -32,11 +32,17 @@ function Icon({placeholder}: {placeholder: any}) {
     )
 }
 
-export function Input({type, placeholder, value, ...rest}: {type: any; placeholder: any; value: any}) {
+interface InputInfo {
+    type: any; 
+    placeholder: any; 
+    value: any; 
+    onChange: any
+}
+
+export function Input({type, placeholder, value, onChange}: InputInfo) {
 
     return (
         <div
-            {...rest}
             className=" bg-BGDARK_800 rounded-[10px] px-4 py-4 flex items-center gap-4"
         >
             <Icon 
@@ -46,6 +52,8 @@ export function Input({type, placeholder, value, ...rest}: {type: any; placehold
             <input 
                 type={type}  
                 placeholder={placeholder}
+                value={value}
+                onChange={onChange}
                 className=" bg-transparent placeholder:text-GRAY_100 placeholder:font-ff_secondary w-full"
             />
         </div>

@@ -32,8 +32,7 @@ export default {
         'HOLLOW_STAR': "url('./src/assets/hollowStar.svg')",
         'BIG_STAR': "url('./src/assets/bigStar.svg')",
         'BIG_HOLLOW_STAR': "url('./src/assets/bigHollowStar.svg')"
-      },
-      
+      },      
     },
   },
   plugins: [],
