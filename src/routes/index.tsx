@@ -6,10 +6,11 @@ import { useAuth } from "../hooks/auth"
 
 export function Routes() {
     const { userDataAndFunc } = useAuth()
+    const { user } = userDataAndFunc
     
     return (
         <BrowserRouter> 
-            { userDataAndFunc.user ? <AppRoutes/> : <AuthRoutes/> }
+            { user ? <AppRoutes/> : <AuthRoutes/> }
         </BrowserRouter>
     )
 }

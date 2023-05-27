@@ -16,7 +16,7 @@ export function SignUp() {
 
     const navigate = useNavigate()
 
-    function handlwSignUp () {
+    function handleSignUp () {
         if(!name || !email || !password) {
             return alert("Preencha todos os campos!")
         }
@@ -71,7 +71,7 @@ export function SignUp() {
                 <Button 
                     title="Cadastrar" 
                     del={false} 
-                    onClick={handlwSignUp}
+                    onClick={handleSignUp}
                 />
 
                 <button

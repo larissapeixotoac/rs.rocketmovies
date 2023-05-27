@@ -3,41 +3,55 @@ import axios, { AxiosError } from "axios";
 
 import { api } from '../services/api'
 
-type AuthUser = {
-    user: any,
+export type AuthUser = {
+    user: User,
     signIn: Function,
     signOut: Function,
     updateProfile: Function
 }
 
 export type AuthContextType = {
-    userDataAndFunc: any,
-    setUserDataAndFunc: any
+    userDataAndFunc: AuthUser,
 }
 
 type AuthContextProviderType = {
     children: React.ReactNode
 }
 
+type Data = {
+    user: User,
+    token: string
+}
+
+export type User = {
+    id: number | string,
+    name: string,
+    password: string,
+    email: string,
+    avatar: string | null,
+    created_at: string,
+    updated_at: string
+}
+
 export const AuthContext = createContext({} as AuthContextType) 
 
 const AuthContextProvider = ({ children }: AuthContextProviderType) => {
-    const [userDataAndFunc, setUserDataAndFunc] = useState<AuthUser | null>(null)
+    // const [userDataAndFunc, setUserDataAndFunc] = useState<AuthUser | null>(null)
 
-    const [data, setData] = useState(Object)
+    const [data, setData] = useState({} as Data)
 
-    async function signIn({ email, password }: any) {
+    async function signIn(email: string, password: string) {
         try {
-            const response = await api.post('/sessions', {email, password})
-            const { user, token } = response.data
+            const response = await api.post('/sessions', { email, password })
+            const { user, token }: { user: User; token: string } = response.data
 
             localStorage.setItem("@rocketmovies:user", JSON.stringify(user))
             localStorage.setItem("@rocketmovies:token", token)
 
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
-            setData({user, token})
             
+            setData({ user, token })
+
         } catch(err) {
             const error = err as Error | AxiosError<Error>
             if(axios.isAxiosError(error)) {
@@ -52,10 +66,10 @@ const AuthContextProvider = ({ children }: AuthContextProviderType) => {
         localStorage.removeItem("@rocketmovies:user")
         localStorage.removeItem("@rocketmovies:token")
 
-        setData({})
+        setData({} as Data)
     }
 
-    async function updateProfile({ user, avatarFile}: any) {
+    async function updateProfile(user: User, avatarFile: string) {
         try {
             if(avatarFile) {
                 const fileUploadForm = new FormData()
@@ -69,7 +83,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderType) => {
             localStorage.setItem("@rocketmovies:user", JSON.stringify(user))
 
             setData({ user, token: data.token })
-
+            
             alert("Perfil atualizado.")
             
         } catch(err) {
@@ -88,10 +102,10 @@ const AuthContextProvider = ({ children }: AuthContextProviderType) => {
 
         if(token && user) {
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
-            setData({
-                token,
-                user: JSON.parse(user)
+           
+            setData({ 
+                user: JSON.parse(user), 
+                token: data.token
             })
         }
     }, [])
@@ -101,10 +115,10 @@ const AuthContextProvider = ({ children }: AuthContextProviderType) => {
             value={{
                 userDataAndFunc: {
                     user: data.user,
-                    signIn,
-                    signOut
+                    signIn: signIn,
+                    signOut: signOut,
+                    updateProfile: updateProfile
                 },
-                setUserDataAndFunc
             }}
         >
             {children}

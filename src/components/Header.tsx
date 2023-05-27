@@ -5,11 +5,12 @@ import { useAuth } from '../hooks/auth'
 
 export function Header() {
     const { userDataAndFunc } = useAuth()
+    const { signOut } = userDataAndFunc
     
     const navigate = useNavigate()
 
     function handlesignOut() {
-        userDataAndFunc.signOut()
+        signOut()
         navigate('/')
     }
 

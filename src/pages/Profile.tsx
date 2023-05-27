@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
 import { FiCamera } from "react-icons/fi"
 
 import { useAuth } from "../hooks/auth"
@@ -13,30 +12,31 @@ import { Back } from "../components/Back"
 
 export function Profile() {
     const { userDataAndFunc } = useAuth()
+    const { user, updateProfile } = userDataAndFunc
 
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [oldPassword, setOldPassoword] = useState()
-    const [newPassword, setNewPassword] = useState()
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [oldPassword, setOldPassoword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
 
-    const avatarURL = userDataAndFunc.user.avatar ? `${api.defaults.baseURL}/files/${userDataAndFunc.user.avatar}` : avatarPlaceholder
+    const avatarURL = user.avatar ? `${api.defaults.baseURL}/files/${userDataAndFunc.user.avatar}` : avatarPlaceholder
 
     const [avatar, setAvatar] = useState(avatarURL)
     const [avatarFile, setAvatarFile] = useState(null)
 
-    const navigate = useNavigate()
+    
 
     async function handleUpdateProfile() {
         const Update = {
-            name,
-            email,
+            name: name,
+            email: email,
             password: newPassword,
             old_password: oldPassword
         }
 
-        const userUpdated = Object.assign(userDataAndFunc.user, Update)
+        const userUpdated = Object.assign(user, Update)
 
-        await userDataAndFunc.updateProfile({ user: userUpdated, avatarFile})
+        await updateProfile(userUpdated, avatarFile)
     }
 
     async function handleChangeAvatar(event: any) {
@@ -47,21 +47,18 @@ export function Profile() {
         setAvatar(imagePreview)
     }
 
-    // function handleBack() {
-    //     navigate(-1)
-    // }
-
+   
     return (
         <div className=" relative flex justify-center">
             <div className=" bg-PINK bg-opacity-5 absolute h-[144px] w-screen -z-10">
             </div>
 
-            <Link 
-                to="/"
-                className="absolute left-0 mt-[60px] ml-36">
-                <Back   />
+            <div 
+                className="absolute left-0 mt-[60px] ml-36"
+            >
+                <Back  />
                 
-            </Link>
+            </div>
 
             <main className=" w-[340px] flex flex-col items-center">
                 <div className="flex items-end justify-end relative mb-16">
@@ -109,14 +106,14 @@ export function Profile() {
                         <Input 
                             type="password" 
                             placeholder="Senha atual" 
-                            value=''  
+                            value={oldPassword}  
                             onChange={(event: any )=> setOldPassoword(event.target.value)} 
                         />
                     </div>
                     <Input 
                         type="password" 
                         placeholder="Nova senha" 
-                        value='' 
+                        value={newPassword} 
                         onChange={(event: any )=> setNewPassword(event.target.value)} 
                     />
                 </div>

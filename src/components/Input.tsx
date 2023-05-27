@@ -1,6 +1,6 @@
 import {FiMail, FiLock, FiUser } from "react-icons/fi"
 
-function Icon({placeholder}: {placeholder: any}) {
+function Icon({placeholder}: {placeholder: string}) {
     return (
         <div className=" text-GRAY_100">
             {placeholder === 'E-mail' &&
@@ -33,9 +33,9 @@ function Icon({placeholder}: {placeholder: any}) {
 }
 
 interface InputInfo {
-    type: any; 
-    placeholder: any; 
-    value: any; 
+    type: string; 
+    placeholder: string; 
+    value: string; 
     onChange: any
 }
 
@@ -49,7 +49,8 @@ export function Input({type, placeholder, value, onChange}: InputInfo) {
                 placeholder={placeholder}
             />
 
-            <input 
+            <input
+                
                 type={type}  
                 placeholder={placeholder}
                 value={value}

@@ -1,16 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
-import { Link } from "react-router-dom";
 
 export function Back() {
-    return (
-        <Link to="/">
-            <a 
-                href="#"
-                className="flex text-PINK items-center mb-6 gap-2"
-            >
-                <FiArrowLeft   />
-                Voltar
-            </a>
-        </Link>
+    const navigate = useNavigate()
+
+    function handleBack() {        
+        navigate(-1)
+    }
+    
+    return (        
+        <button 
+            onClick={handleBack}
+            className="flex text-PINK items-center mb-6 gap-2"
+        >
+            <FiArrowLeft   />
+            Voltar
+        </button>    
 )
 }

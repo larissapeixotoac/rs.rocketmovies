@@ -13,11 +13,11 @@ export function SignIn() {
     const [password, setPassword] = useState('')
 
     const { userDataAndFunc } = useAuth()
+    const { signIn } = userDataAndFunc
 
     function handleSignIn() {
-        userDataAndFunc.signIn({ email, password })
+        signIn(email, password)
     }
-    console.log('teste')
  
     return (
         <div className="flex h-screen">
