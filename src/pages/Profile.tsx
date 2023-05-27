@@ -14,8 +14,8 @@ export function Profile() {
     const { userDataAndFunc } = useAuth()
     const { user, updateProfile } = userDataAndFunc
 
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState(user.name)
+    const [email, setEmail] = useState(user.email)
     const [oldPassword, setOldPassoword] = useState('')
     const [newPassword, setNewPassword] = useState('')
 
@@ -25,11 +25,10 @@ export function Profile() {
     const [avatarFile, setAvatarFile] = useState(null)
 
     
-
     async function handleUpdateProfile() {
         const Update = {
-            name: name,
-            email: email,
+            name,
+            email,
             password: newPassword,
             old_password: oldPassword
         }
@@ -46,7 +45,6 @@ export function Profile() {
         const imagePreview = URL.createObjectURL(file)
         setAvatar(imagePreview)
     }
-
    
     return (
         <div className=" relative flex justify-center">
