@@ -1,8 +1,15 @@
+import React from "react";
 
-export function Button({title, del, onClick, ...rest}: {title: any; del: boolean; onClick: any}) {
+interface Button {
+    title: string,
+    del: boolean,
+    onClick: React.MouseEventHandler<HTMLButtonElement>
+}
+
+
+export function Button({ title, del, onClick }: Button) {
     return (
         <button
-            {...rest}
             onClick={onClick}
             className={` font-medium w-full px-36 py-4 rounded-[10px] ${del ? ' bg-BLACK text-PINK' : 'bg-PINK text-BGDARK_700'} `}
         >

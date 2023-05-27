@@ -35,7 +35,7 @@ function Icon({placeholder}: {placeholder: string}) {
 interface InputInfo {
     type: string; 
     placeholder: string; 
-    value: string; 
+    value: number | string; 
     onChange: any
 }
 

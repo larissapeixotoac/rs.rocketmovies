@@ -1,12 +1,17 @@
 import { Link, useNavigate } from 'react-router-dom'
 
+import { api } from '../services/api'
+
+import avatarPlaceholder from '../assets/avatar_placeholder.svg'
 import { Input } from './Input'
 import { useAuth } from '../hooks/auth'
 
 export function Header() {
     const { userDataAndFunc } = useAuth()
-    const { signOut } = userDataAndFunc
+    const { signOut, user } = userDataAndFunc
     
+    const avatarURL = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder
+
     const navigate = useNavigate()
 
     function handlesignOut() {
@@ -33,7 +38,7 @@ export function Header() {
                         to="/profile"
                         className=' font-bold'
                     >
-                        {userDataAndFunc.user.name}
+                        {user.name}
                     </Link>
 
                     <button 
@@ -45,8 +50,8 @@ export function Header() {
                 </div>
                 <Link to="/profile">
                     <img
-                        src="https://github.com/larissapeixotoac.png"
-                        alt="Foto do usuário"
+                        src={avatarURL}
+                        alt={user.name}
                         className=' w-16 h-16 rounded-full'
                     />
                 </Link>
