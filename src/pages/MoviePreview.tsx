@@ -5,7 +5,7 @@ import { Tag } from "../components/Tag";
 import { Back } from "../components/Back";
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DataTag, Note } from "./Home";
 import { useAuth } from "../hooks/auth";
 
@@ -17,9 +17,15 @@ export function MoviePreview() {
     const { user } = userDataAndFunc
     
     const params = useParams()
+    const navigate = useNavigate()
 
-    function handleDeleteNote() {
-        
+    async function handleDeleteNote() {
+        const confirm = window.confirm('Deseja realmente excluir essa nota?')
+
+        if(confirm) {
+            await api.delete(`/notes/${params.id}`)
+            navigate(-1)
+        }
     }
     
     useEffect(() => {
@@ -82,6 +88,7 @@ export function MoviePreview() {
                         </div>
                         <button 
                             className="mt-6 mb-10 text-PINK text-lg"
+                            onClick={handleDeleteNote}
                         >
                             Excluir
                         </button>
