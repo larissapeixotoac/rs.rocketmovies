@@ -5,11 +5,14 @@ import { api } from '../services/api'
 import avatarPlaceholder from '../assets/avatar_placeholder.svg'
 import { Input } from './Input'
 import { useAuth } from '../hooks/auth'
+import React, { useState } from 'react'
 
-export function Header() {
+export function Header({onChange, value}: {onChange: any, value: string}) {
     const { userDataAndFunc } = useAuth()
     const { signOut, user } = userDataAndFunc
-    
+
+    const [search, setSearch] = useState('')
+        
     const avatarURL = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder
 
     const navigate = useNavigate()
@@ -28,8 +31,8 @@ export function Header() {
                 <Input 
                     type="text" 
                     placeholder="Pesquisar pelo título" 
-                    value="" 
-                    onChange={() => {}}
+                    value={value}
+                    onChange={onChange}
                 />
             </div>
             <div className='flex ml-16 gap-3'>

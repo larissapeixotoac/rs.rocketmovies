@@ -1,14 +1,66 @@
+import React, { useEffect, useState } from "react"
+import { FiPlus } from "react-icons/fi"
+
+import { useAuth } from "../hooks/auth"
+import { api } from "../services/api"
+
 import { Header } from "../components/Header"
 import { Card } from "../components/Card"
 
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-import { FiPlus } from "react-icons/fi"
+export interface Note {
+    id: number,
+    title: string,
+    description: string,
+    rating: number,
+    user_id: number,
+    created_at: string,
+    updated_at: string,
+    tags: DataTag[]
+}
+
+export interface DataTag {
+    id: number,
+    note_id: number,
+    user_id: number,
+    name: string
+}
 
 export function Home() {
+    const [notes, setNotes] = useState<Note[]>([])
+    const [search, setSearch] = useState("")
+    const { userDataAndFunc } = useAuth()
+    const { user } = userDataAndFunc
+
+    const navigate = useNavigate()
+
+    function handleMoviePreview(id: number) {
+        navigate(`/moviepreview/${id}`)
+    }
+    
+    useEffect(() => {
+        async function fetchNotes() {
+            const response = await api.get(`/notes?user_id=${user.id}&title=${search}`)
+            setNotes(response.data)
+        }
+        fetchNotes()
+    }, [search])
+
+    // useEffect(() => {
+    //     async function fetchNotes() {
+    //         const response = await api.get(`/notes?title=${search}`)
+    //         setSearchNotes(response.data)
+    //     }
+    //     fetchNotes()
+    // }, [search])
+
     return (
         <div className="flex flex-col h-[85vh]">
-            <Header />
+            <Header 
+                value={search}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => setSearch(event.target.value)}
+            />
 
             <div className="flex flex-col h-full px-32">
                 <div className="flex justify-between mt-12 mb-10">
@@ -26,10 +78,17 @@ export function Home() {
                     </Link>
                 </div>
                 <main className="flex flex-col gap-6 overflow-y-auto pr-3 pb-5">
-                    <Card   />
-                    <Card   />
-                    <Card   />
-                    <Card   />
+                    {
+                        notes.map(note => (
+                            <Card   
+                                key={note.id}
+                                data={note}
+                                onClick={() => handleMoviePreview(note.id)}
+                            />
+                        ))
+                        
+                    }
+                    
                 </main>
             </div>
         </div>

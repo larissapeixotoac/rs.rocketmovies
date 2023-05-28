@@ -35,8 +35,13 @@ export function NewMovie() {
                 tags
             })
 
+            setTitle('')
+            setDescription('')
+            setRatingString('')
+            setTags([])
+
             alert("Nota cadastrada com sucesso.")
-            
+
         } catch(err) {
             const error = err as Error | AxiosError<Error>
             if(axios.isAxiosError(error)) {
@@ -64,12 +69,12 @@ export function NewMovie() {
         setTags(prevState => prevState.filter(tag => tag !== deletedTag))
     }
 
-    
-
-
     return (
         <div className="w-[99vw] h-screen flex flex-col items-center">
-            <Header />
+            <Header 
+                value=""
+                onChange={() => {}}
+            />
 
             <div className=" pt-10" >
                 <Back   />     

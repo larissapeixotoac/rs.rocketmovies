@@ -36,7 +36,7 @@ interface InputInfo {
     type: string; 
     placeholder: string; 
     value: number | string; 
-    onChange: any
+    onChange: React.ChangeEventHandler<HTMLInputElement>
 }
 
 export function Input({type, placeholder, value, onChange}: InputInfo) {
