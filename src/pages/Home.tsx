@@ -47,14 +47,6 @@ export function Home() {
         fetchNotes()
     }, [search])
 
-    // useEffect(() => {
-    //     async function fetchNotes() {
-    //         const response = await api.get(`/notes?title=${search}`)
-    //         setSearchNotes(response.data)
-    //     }
-    //     fetchNotes()
-    // }, [search])
-
     return (
         <div className="flex flex-col h-[85vh]">
             <Header 

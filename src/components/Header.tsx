@@ -1,11 +1,11 @@
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { api } from '../services/api'
+import { useAuth } from '../hooks/auth'
 
 import avatarPlaceholder from '../assets/avatar_placeholder.svg'
 import { Input } from './Input'
-import { useAuth } from '../hooks/auth'
-import React, { useState } from 'react'
 
 export function Header({onChange, value}: {onChange: any, value: string}) {
     const { userDataAndFunc } = useAuth()

@@ -1,13 +1,16 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { FiClock } from "react-icons/fi";
+
+import { api } from "../services/api";
+import { useAuth } from "../hooks/auth";
+
+import { DataTag, Note } from "./Home";
+
 import { Header } from "../components/Header";
 import { Rating } from "../components/Rating";
-import { FiClock } from "react-icons/fi";
 import { Tag } from "../components/Tag";
 import { Back } from "../components/Back";
-import { useEffect, useState } from "react";
-import { api } from "../services/api";
-import { useNavigate, useParams } from "react-router-dom";
-import { DataTag, Note } from "./Home";
-import { useAuth } from "../hooks/auth";
 
 export function MoviePreview() {
     const [note, setNote] = useState({} as Note)

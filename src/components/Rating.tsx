@@ -1,12 +1,14 @@
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import axios, { AxiosError } from 'axios'
+
+import { api } from '../services/api'
+
 import star from '../assets/star.svg'
 import hollowStar from '../assets/hollowStar.svg'
 import bigStar from '../assets/bigStar.svg'
 import bigHollowStar from '../assets/bigHollowStar.svg'
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import { Note } from '../pages/Home'
-import { api } from '../services/api'
-import axios, { AxiosError } from 'axios'
 
 type Rate = {
     rate: number

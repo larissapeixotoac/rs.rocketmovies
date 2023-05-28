@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom"
+import React from "react"
 
 import { Note } from "../pages/Home"
 
-import { Rating } from "./Rating"
 import { Tag } from "./Tag"
-import React from "react"
+import { Rating } from "./Rating"
+
 
 type Card = {
     key: number,

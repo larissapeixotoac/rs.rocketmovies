@@ -1,5 +1,3 @@
-
-
 export function Tag({ title, key}: {title: string, key: number} ) {
     return (
         <div

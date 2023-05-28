@@ -1,11 +1,13 @@
 import { useState } from "react"
+import axios, { AxiosError } from "axios"
+
+import { api } from "../services/api"
+
 import { Back } from "../components/Back"
 import { Button } from "../components/Button"
 import { Header } from "../components/Header"
 import { Input } from "../components/Input"
 import { NewTag } from "../components/NewTag"
-import { api } from "../services/api"
-import axios, { AxiosError } from "axios"
 
 export function NewMovie() {
     const [title, setTitle] = useState<string>('')
