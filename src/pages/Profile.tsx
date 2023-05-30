@@ -8,21 +8,21 @@ import avatarPlaceholder from '../assets/avatar_placeholder.svg'
 import { Input } from "../components/Input"
 import { Button } from "../components/Button"
 import { Back } from "../components/Back"
+import { updateProfile } from "../services/account.management"
 
 
 export function Profile() {
-    const { userDataAndFunc } = useAuth()
-    const { user, updateProfile } = userDataAndFunc
+    const { user } = useAuth()
 
-    const [name, setName] = useState(user.name)
-    const [email, setEmail] = useState(user.email)
+    const [name, setName] = useState(user?.name)
+    const [email, setEmail] = useState(user?.email)
     const [oldPassword, setOldPassoword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     
-    const avatarURL = user.avatar ? `${api.defaults.baseURL}/files/${userDataAndFunc.user.avatar}` : avatarPlaceholder
+    const avatarURL = user?.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder
 
     const [avatar, setAvatar] = useState(avatarURL)
-    const [avatarFile, setAvatarFile] = useState(null)
+    const [avatarFile, setAvatarFile] = useState('')
 
     
     async function handleUpdateProfile() {
@@ -33,9 +33,10 @@ export function Profile() {
             old_password: oldPassword
         }
 
-        const userUpdated = Object.assign(user, Update)
-
-        await updateProfile(userUpdated, avatarFile)
+        if (user) {
+            const userUpdated = Object.assign(user, Update)
+            await updateProfile(userUpdated, avatarFile)
+        }
     }
 
     async function handleChangeAvatar(event: any) {
@@ -84,7 +85,7 @@ export function Profile() {
                         <Input 
                             type="text" 
                             placeholder="Nome" 
-                            value={name} 
+                            value={name ? name:''} 
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setName(event.target.value)} 
                             
                         />
@@ -93,7 +94,7 @@ export function Profile() {
                         <Input 
                             type="email" 
                             placeholder="E-mail" 
-                            value={email}  
+                            value={email ? email:''}  
                             onChange={(event: React.ChangeEvent<HTMLInputElement> )=> setEmail(event.target.value)} 
                         />                    
                     </div>

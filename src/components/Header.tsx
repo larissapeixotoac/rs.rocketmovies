@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+// import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { api } from '../services/api'
@@ -6,14 +6,14 @@ import { useAuth } from '../hooks/auth'
 
 import avatarPlaceholder from '../assets/avatar_placeholder.svg'
 import { Input } from './Input'
+import { signOut } from '../services/auth'
 
 export function Header({onChange, value}: {onChange: any, value: string}) {
-    const { userDataAndFunc } = useAuth()
-    const { signOut, user } = userDataAndFunc
+    const { user } = useAuth()
 
-    const [search, setSearch] = useState('')
+    // const [search, setSearch] = useState('')
         
-    const avatarURL = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder
+    const avatarURL = user?.avatar ? `${api.defaults.baseURL}/files/${user?.avatar}` : avatarPlaceholder
 
     const navigate = useNavigate()
 
@@ -41,7 +41,7 @@ export function Header({onChange, value}: {onChange: any, value: string}) {
                         to="/profile"
                         className=' font-bold'
                     >
-                        {user.name}
+                        {user?.name}
                     </Link>
 
                     <button 
@@ -54,7 +54,7 @@ export function Header({onChange, value}: {onChange: any, value: string}) {
                 <Link to="/profile">
                     <img
                         src={avatarURL}
-                        alt={user.name}
+                        alt={user?.name}
                         className=' w-16 h-16 rounded-full'
                     />
                 </Link>

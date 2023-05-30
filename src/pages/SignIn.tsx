@@ -1,19 +1,17 @@
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import { useAuth } from '../hooks/auth'
-
-import { Title } from '../components/Title'
-import { Input } from '../components/Input'
 import { Button } from '../components/Button'
+import { Input } from '../components/Input'
+import { Title } from '../components/Title'
+import { signIn } from '../services/auth'
 
 
 export function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const { userDataAndFunc } = useAuth()
-    const { signIn } = userDataAndFunc
+
 
     function handleSignIn() {
         signIn(email, password)

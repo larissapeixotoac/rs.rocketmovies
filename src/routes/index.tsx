@@ -5,9 +5,8 @@ import { AppRoutes } from "./app.routes"
 import { useAuth } from "../hooks/auth"
 
 export function Routes() {
-    const { userDataAndFunc } = useAuth()
-    const { user } = userDataAndFunc
-    
+    const { user } = useAuth()
+
     return (
         <BrowserRouter> 
             { user ? <AppRoutes/> : <AuthRoutes/> }

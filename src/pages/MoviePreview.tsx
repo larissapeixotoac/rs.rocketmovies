@@ -16,8 +16,7 @@ export function MoviePreview() {
     const [note, setNote] = useState({} as Note)
     const [tags, setTags] = useState<DataTag[]>([])
 
-    const { userDataAndFunc } = useAuth()
-    const { user } = userDataAndFunc
+    const { user } = useAuth()
     
     const params = useParams()
     const navigate = useNavigate()
@@ -79,7 +78,7 @@ export function MoviePreview() {
                                     className=" w-4 h-4 rounded-full"
                                 />
                                 <p>
-                                    {user.name}
+                                    {user?.name}
                                 </p>
                             </div>
                             <div className="flex items-center gap-2">

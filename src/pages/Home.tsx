@@ -30,8 +30,7 @@ export interface DataTag {
 export function Home() {
     const [notes, setNotes] = useState<Note[]>([])
     const [search, setSearch] = useState("")
-    const { userDataAndFunc } = useAuth()
-    const { user } = userDataAndFunc
+    const { user } = useAuth()
 
     const navigate = useNavigate()
 
@@ -41,7 +40,7 @@ export function Home() {
     
     useEffect(() => {
         async function fetchNotes() {
-            const response = await api.get(`/notes?user_id=${user.id}&title=${search}`)
+            const response = await api.get(`/notes?user_id=${user?.id}&title=${search}`)
             setNotes(response.data)
         }
         fetchNotes()
