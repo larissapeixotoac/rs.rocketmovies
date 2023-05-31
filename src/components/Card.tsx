@@ -23,7 +23,6 @@ export function Card({ key, data, onClick }: Card) {
             </h2>
             <div className=" mb-4">
                 <Rating 
-                    big={false}
                     note_id={data.id}
                     value={data.rating}
                 />
